@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Aplicación con Sockets</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="main.js"></script>
+  <script src="lib.js"></script>
+</head>
+<body>
+  <h1>My App</h1>
+  <div id="messages"></div>
+  <br/>
+  <input type="radio" name="modo" onchange="change_opt()" value="all"> all<br>
+  <input type="radio" name="modo" onchange="change_opt()" value="local"> local<br>
+  <input type="radio" name="modo" onchange="change_opt()" value="server"> server<br>
+  <input type="radio" name="modo" onchange="change_opt()" value="client"> cliente<br>
+
+    <input type="text" id="txt" placeholder="Tu Nombre" >
+    <button onclick="exec()">Add</button>
+
+</body>
+</html>
