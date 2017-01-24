@@ -4,6 +4,7 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 app.use(express.static('public'));
+var path    = require("path");
 
 var clients=[];
 var cmd=[];
@@ -26,6 +27,11 @@ io.on('connection', function(socket) {
     io.sockets.emit('server',data);
   });
 });
+
+app.get("/alice",function(req,res){
+  res.sendFile(path.join(__dirname+'/public/alice/index.html'));
+});
+
 
 server.listen(8080, function() {
   console.log("Servidor corriendo en http://localhost:8080");
