@@ -29,7 +29,7 @@ io.on('connection', function(socket) {
 });
 
 app.get("/alice",function(req,res){
-  res.sendFile(path.join(__dirname+'/public/alice/index.html'));
+  res.sendFile(path.join(__dirname+'/public/alice/prueba.html'));
 });
 
 
