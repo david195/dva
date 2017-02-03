@@ -1,38 +1,45 @@
 var express = require('express');
+var session = require('express-session');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+var path    = require("path");
+var nodes=[];
+var cmds=[];
+var ids=0;
 
 app.use(express.static('public'));
-var path    = require("path");
+app.use(session({secret: 'ssshhhhh'}));
 
-var clients=[];
-var cmd=[];
+/*Sockets*/
 
 io.on('connection', function(socket) {
-  var i = clients.length;
-  socket.emit('registro', i);
-  socket.on('registro', function(data) {
-    clients.push(data);
-    console.log("new -> "+data);
-  });
-  socket.on('all', function(data) {
-    cmd.push(data);
-    console.log("all -> "+data);
-    io.sockets.emit('all',data);
-  });
-  socket.on('client', function(data) {
-    cmd.push(data);
-    console.log("client -> "+data);
-    io.sockets.emit('server',data);
-  });
+  nodes.push(socket);
+  socket.on('login',function(data){login(data,socket)});
+  socket.on('cmd',function(data){cmd(data)});
 });
+
+function cmd(data){
+  console.log(data);
+  io.sockets.emit('exec',data);
+}
+
+function login(data,socket){
+  nodes.push([ids,data]);
+  ids++;
+  socket.emit('id',ids);
+  console.log(data);
+}
 
 app.get("/alice",function(req,res){
-  res.sendFile(path.join(__dirname+'/public/alice/prueba.html'));
+  console.log(clients);
+  console.log(servers);
+  res.sendFile(path.join(__dirname+'/public/alice/index.html'));
 });
 
-
+app.get("/yt",function(req,res){
+  res.sendFile(path.join(__dirname+'/public/alice/yt.html'));
+});
 server.listen(8080, function() {
   console.log("Servidor corriendo en http://localhost:8080");
 });
