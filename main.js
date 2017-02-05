@@ -25,16 +25,15 @@ function cmd(data){
 }
 
 function login(data,socket){
-  nodes.push([ids,data]);
-  ids++;
-  socket.emit('id',ids);
   console.log(data);
 }
 
 app.get("/alice",function(req,res){
-  console.log(clients);
-  console.log(servers);
   res.sendFile(path.join(__dirname+'/public/alice/index.html'));
+});
+
+app.get("/debug",function(req,res){
+  res.sendFile(path.join(__dirname+'/public/alice/prueba.html'));
 });
 
 app.get("/yt",function(req,res){

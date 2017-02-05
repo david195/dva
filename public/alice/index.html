@@ -10,11 +10,21 @@
 
 <script type="text/javascript" src="resources/script/google.js"></script>
 <script src="https://www.google.com/jsapi" type="text/javascript"></script>
-<script type="text/javascript" src="text/javascript" src="https://www.youtube.com/iframe_api"></script>
+<script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
+
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="resources/script/socket.js"></script>
+<script type="text/javascript" src="resources/script/lib.js"></script>
 
 </head>
+<body>
 <body onload="getLocation()" onkeypress="tecla(event)">
 <div id='layout'>
+
+	<input type="radio" name="modo" onchange="send_opt()" onclick='send_opt' value="local" checked="true"> local<br>
+	<input type="radio" name="modo" onchange="send_opt()" onclick='send_opt' value="server"> server<br>
+	<input type="radio" name="modo" onchange="send_opt()" onclick='send_opt' value="client"> cliente<br>
+
 <div id="content">
 		<div id="control">
 			<textarea id="texto"></textarea>
@@ -30,5 +40,6 @@
 		</div>
 </div>
 </div>
+
 </body>
 </html>

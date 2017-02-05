@@ -17,11 +17,11 @@ function send_opt(){
   socket.emit("login",value);
 }
 
-function send_cmd(){
+function send_cmd(cmd){
   if(me.state=="client")
-    socket.emit('cmd',$('cmd').value);
+    socket.emit('cmd',cmd);
   else if (me.state=="local") {
-    exec($('cmd').value)
+    exec(cmd)
   }
 }
 
@@ -37,7 +37,7 @@ socket.on('exec',function(cmd){
 
 function exec(cmd){
   me.addcmd(cmd);
-  alert(cmd);
+  analiza(cmd);
 }
 
 //Class

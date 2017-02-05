@@ -17,7 +17,7 @@ if (!('webkitSpeechRecognition' in window)) {
 
   recognition.onstart = function() {
     recognizing = true;
-    console.log("empezando a eschucar");
+    console.log("empezando a escuchar");
   }
   recognition.onresult = function(event) {
 
@@ -28,8 +28,9 @@ if (!('webkitSpeechRecognition' in window)) {
         texto = texto.slice(1);
       document.getElementById("texto").value = texto;
       cName = texto.split(" ")[0];
-      if(cName==Vname & texto.slice(Vname.length+1)!="")
-        analiza(texto.slice(Vname.length+1));
+      if(cName==Vname & texto.slice(Vname.length+1)!=""){
+        send_cmd(texto.slice(Vname.length+1));
+      }
     }
   }
 
@@ -96,37 +97,4 @@ function wikipedia(title){
   responsiveVoice.speak(contenido,'Spanish Female');
   var url = 'https://es.wikipedia.org/wiki/'+title;
   $('web').src = url;
-}
-
-function loadDoc(url) {
-  var xhttp = new XMLHttpRequest();
-  var txt;
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-     txt = this.responseText;
-    }
-  };
-  xhttp.open("GET", url, false);
-  xhttp.send();
-  return txt;
-}
-
-function $(id){
-  return document.getElementById(id);
-}
-
-function tecla(e){
-  var keyCode;
-  if(window.event)keyCode=window.event.keyCode;
-  else if(e) keyCode=e.which;
-  switch (keyCode) {
-    case 101:
-      procesar();
-      break;
-    case 99:
-      responsiveVoice.cancel();
-      break;
-    default:
-
-  }
 }
