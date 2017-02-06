@@ -1,4 +1,4 @@
-function $(id){
+function $_get(id){
   return document.getElementById(id);
 }
 

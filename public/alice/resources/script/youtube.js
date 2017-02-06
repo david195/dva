@@ -1,6 +1,5 @@
 
   var tag = document.createElement('script');
-  alert("wako");
   tag.src = "https://www.youtube.com/iframe_api";
   var firstScriptTag = document.getElementsByTagName('script')[0];
   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
@@ -9,12 +8,12 @@
   //    after the API code downloads.
   var player;
   function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
+    player = new YT.Player('youtube', {
       height: '390',
       width: '640',
       videoId: 'wRD7Isyn5dU',
       events: {
-        'onReady': onPlayerReady,
+        //'onReady': onPlayerReady,
         'onStateChange': onPlayerStateChange
       }
     });
@@ -32,7 +31,7 @@
   var done = false;
   function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.PLAYING && !done) {
-      setTimeout(stopVideo, 6000);
+      setTimeout(player.stopVideo, 6000);
       done = true;
     }
   }

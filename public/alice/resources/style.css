@@ -25,25 +25,33 @@ textarea {
 	min-height: 80px;
 }
 #control{
-	text-align: center;
-	width: 1224px;
+	width: 960px;
 	margin-left: 0 auto;
 	margin-bottom: 10px;
 }
 #youtube{
 	position: absolute;
+	display: none;
+	width: 960px;
 }
 
 #web{
 	position: absolute;
-	left: 310px;
+	display: none;
+	width: 960px;
 }
 
 #content{
+	text-align: center;
 	position: absolute;
-	width: 1224px;
-	margin-left: 0 auto;
+	width: 960px;
 }
 #layout{
 	width: 100%;
+}
+
+@media screen and (max-width: 800px) {
+	#content,#web,#youtube,#control{
+	 width: 400px;
+	}
 }

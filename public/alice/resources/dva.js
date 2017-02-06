@@ -26,11 +26,11 @@ if (!('webkitSpeechRecognition' in window)) {
       texto = event.results[i][0].transcript;
       if(texto[0]==" ")
         texto = texto.slice(1);
-      document.getElementById("texto").value = texto;
       cName = texto.split(" ")[0];
       if(cName==Vname & texto.slice(Vname.length+1)!=""){
         send_cmd(texto.slice(Vname.length+1));
       }
+      $_get("texto").value = texto.slice(Vname.length+1);
     }
   }
 
@@ -64,6 +64,7 @@ function procesar() {
 
 function analiza(cmd){
   //window.open("https://www.google.com.mx/search?q="+texto);
+  $_get('texto').value = cmd;
   var search = String(cmd.split(" ")[0]);
   var url = '';
   switch (search) {
@@ -80,21 +81,67 @@ function analiza(cmd){
       wikipedia(cmd.slice(10));
       break;
     case "home":
-      alert(loadDoc('script/rb.php?cmd='+cmd.slice(5)));
+      alert("home execute: "+cmd.slice(5));
+      break;
+    case "cállate":
+      responsiveVoice.cancel();
       break;
     default:
-      return;
-      break
+      break;
   }
 }
 
 function youtube(id){
-  $('youtube').src = "http://www.youtube.com/embed/?enablejsapi=1&version=3&listType=search&list="+id;
+  //$('youtube').src = "http://www.youtube.com/embed/?enablejsapi=1&version=3&listType=search&list="+id;
+  $_get('youtube').style.display = 'block';
+  $_get('web').style.display = 'none';
+  switch (id) {
+    case "reproducir":
+      player.playVideo();
+      break;
+    case "para":
+      player.stopVideo();
+      break;
+    case "pausa":
+      player.pauseVideo();
+      break;
+    case "siguiente":
+      player.nextVideo();
+      break;
+    case "anterior":
+      player.previousVideo();
+      break;
+    default:
+      player.loadPlaylist({list:id,listType:"search"});
+      break;
+  }
 }
 
 function wikipedia(title){
-  var contenido = loadDoc("script/server.php?wikipedia="+title);
-  responsiveVoice.speak(contenido,'Spanish Female');
+  //responsiveVoice.speak(contenido,'Spanish Female');
   var url = 'https://es.wikipedia.org/wiki/'+title;
-  $('web').src = url;
+  $_get('youtube').style.display = 'none';
+  $_get('web').style.display = 'block';
+  $_get('web').src = url;
+  wiki(title,responsiveVoice.speak);
+}
+
+
+function wiki(title,callback){
+  title = title.replace(" ","%20")
+  $.ajax({
+      type: "GET",
+      url: "https://es.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles="+title+"&callback=?",
+      contentType: "application/json; charset=utf-8",
+      async: false,
+      dataType: "json",
+      success: function (data, textStatus, jqXHR) {
+          var x = data['query']['pages'];
+          for (var a  in x) {
+            callback(x[a]['extract'],'Spanish Female');
+          }
+      },
+      error: function (errorMessage) {
+      }
+  });
 }
