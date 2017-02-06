@@ -32,11 +32,6 @@ app.get("/alice",function(req,res){
   res.sendFile(path.join(__dirname+'/public/alice/index.html'));
 });
 
-app.get("/debug",function(req,res){
-  res.header('Access-Control-Allow-Origin', "*"); 
-  res.sendFile(path.join(__dirname+'/public/alice/prueba.html'));
-});
-
 server.listen(8080, function() {
   console.log("Servidor corriendo en http://localhost:8080");
 });
