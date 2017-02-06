@@ -28,8 +28,12 @@ function login(data,socket){
   console.log(data);
 }
 
-app.get("/alice",function(req,res){
+app.get("/allice",function(req,res){
   res.sendFile(path.join(__dirname+'/public/alice/index.html'));
+});
+
+app.get("/debug",function(req,res){
+  res.sendFile(path.join(__dirname+'/public/face/face.html'));
 });
 
 server.listen(8080, function() {
