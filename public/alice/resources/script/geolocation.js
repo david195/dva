@@ -4,7 +4,6 @@ var Longitude = 0;
 var appid = "fb74489502e2ec744aa77a0d52627139";
 
 
-
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(setPosition);

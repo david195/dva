@@ -27,6 +27,6 @@ function loadDoc(url) {
     }
   };
   xhttp.open("GET", url, false);
-  xhttp.send();
+  xhttp.send(null);
   return txt;
 }

@@ -14,4 +14,5 @@ action(anterior, youtube).
 
 :- dynamic short_cut/2.
 
-short_cut('pon la que sigue','youtube siguiente').
+short_cut('pon la que sigue', 'youtube siguiente').
+short_cut(wakoo, loko).

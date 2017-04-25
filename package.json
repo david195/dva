@@ -9,8 +9,10 @@
   "author": "David Ruiz garcia",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.1",
     "express": "^4.14.0",
     "express-session": "^1.15.0",
+    "request": "^2.81.0",
     "socket.io": "^1.7.2"
   }
 }

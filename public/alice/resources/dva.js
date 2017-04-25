@@ -1,6 +1,7 @@
 var recognition;
 var recognizing = false;
 var Vname = 'Alice';
+var yes;
 
 var texto="";
 
@@ -30,6 +31,8 @@ if (!('webkitSpeechRecognition' in window)) {
       if(cName==Vname & texto.slice(Vname.length+1)!=""){
         send_cmd(texto.slice(Vname.length+1));
       }
+      if(cName=="si"|cName=="no")
+        yes = cName;
       $_get("texto").value = texto.slice(Vname.length+1);
     }
   }
@@ -63,9 +66,19 @@ function procesar() {
 }
 
 function analiza(cmd){
+  alice(cmd.toLowerCase(),function(res){
+    var fun = res.split(" ")[0];
+    var arg = res.slice(fun.length);
+    var call = fun+"('"+arg.replace(" ","")+"')";
+    if(res=="ERROR"){
+      add_cmd(cmd);
+    }
+    eval(call);
+    $_get('texto').value = res;
+
+  });
   //window.open("https://www.google.com.mx/search?q="+texto);
-  $_get('texto').value = cmd;
-  var search = String(cmd.split(" ")[0]);
+  /*var search = String(cmd.split(" ")[0]);
   var url = '';
   switch (search) {
     case "Google":
@@ -88,9 +101,28 @@ function analiza(cmd){
       break;
     default:
       break;
-  }
+  }*/
 }
 
+function alice(cmd,callback){
+  $.get(
+    "http://localhost:3000/debug?q="+cmd,
+    {paramOne : 1, paramX : 'abc'},
+    function(data) {
+       callback(data);
+    }
+  );
+}
+
+
+function add_cmd(cmd){
+    var say = "comando no encontrado, ¿deseas asociar un comando existente?"
+    responsiveVoice.speak(say,'Spanish Female');
+    alert("wako");
+
+}
+
+/*Funciones cmd*/
 function youtube(id){
   //$('youtube').src = "http://www.youtube.com/embed/?enablejsapi=1&version=3&listType=search&list="+id;
   $_get('youtube').style.display = 'block';
@@ -99,7 +131,7 @@ function youtube(id){
     case "reproducir":
       player.playVideo();
       break;
-    case "para":
+    case "detener":
       player.stopVideo();
       break;
     case "pausa":
@@ -144,4 +176,9 @@ function wiki(title,callback){
       error: function (errorMessage) {
       }
   });
+}
+
+function google(q){
+  url= 'https://www.google.com.mx/search?q='+q;
+  window.open(url);
 }
