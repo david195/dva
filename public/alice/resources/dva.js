@@ -3,6 +3,8 @@ var recognizing = false;
 var Vname = 'Alice';
 var yes;
 
+var IPS = "192.168.1.68";
+
 var texto="";
 
 //Speach Recognition
@@ -105,8 +107,12 @@ function analiza(cmd){
 }
 
 function alice(cmd,callback){
+  send_http("http://"+IPS+":3000/debug?q="+cmd,callback);
+}
+
+function send_http(url,callback){
   $.get(
-    "http://localhost:3000/debug?q="+cmd,
+    url,
     {paramOne : 1, paramX : 'abc'},
     function(data) {
        callback(data);
@@ -114,12 +120,11 @@ function alice(cmd,callback){
   );
 }
 
-
 function add_cmd(cmd){
-    var say = "comando no encontrado, ¿deseas asociar un comando existente?"
-    responsiveVoice.speak(say,'Spanish Female');
-    alert("wako");
-
+    //var say = "comando no encontrado, ¿deseas asociar un comando existente?"
+    //responsiveVoice.speak(say,'Spanish Female');
+    alert("simon");
+    send_http("http://l"+IPS+":3000/debug?add="+cmd+"&cmd=youtube",alert);
 }
 
 /*Funciones cmd*/

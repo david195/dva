@@ -7,6 +7,8 @@ var path    = require("path");
 var cors = require('cors');
 cors = require('cors');
 
+var IPS = "192.168.1.68";
+
 var nodes=[];
 var cmds=[];
 var ids=0;
@@ -51,8 +53,13 @@ app.get("/debug",function(req,res){
   }
 
   //Step 2 - Configure the request
+  var url='http://'+IPS+':8080/alice?';
+  if(req.query.q!=null)
+    url+='q='+req.query.q;
+  if(req.query.add!=null)
+    url+='add='+req.query.add;
   var options = {
-      url     : 'http://localhost:8080/alice?q='+req.query.q,
+      url     : url,
       method  : 'GET',
       jar     : true,
       headers : headers
@@ -69,5 +76,5 @@ app.get("/debug",function(req,res){
 });
 
 server.listen(3000, function() {
-  console.log("Servidor corriendo en http://192.168.0.99:3000");
+  console.log("Servidor corriendo en http://"+IPS+":3000");
 });

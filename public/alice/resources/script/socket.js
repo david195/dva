@@ -1,4 +1,4 @@
-var socket = io.connect('http://192.168.1.73:3000', { 'forceNew': true });
+var socket = io.connect('http://'+IPS+':3000', { 'forceNew': true });
 var me=new local();
 
 /*Send*/
