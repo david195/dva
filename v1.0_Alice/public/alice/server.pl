@@ -38,7 +38,8 @@ add(Request):-
   listing(action),
   listing(short_cut),
   told,
-  format('Short-cut agregado correctamente').
+  format('Content-type: text/plain~n~n'),
+  format('Short-cut agregado correctamente'),!.
 
 add(Request):-
   http_parameters(Request,[sc(Sc,   [ length >= 2 ]),cmd(Cmd,   [ length >= 2 ])]),

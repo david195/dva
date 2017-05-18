@@ -3,6 +3,7 @@
 service(youtube).
 service(google).
 service(wikipedia).
+service(home).
 
 action(pausa, youtube).
 action(detener, youtube).

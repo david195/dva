@@ -2,7 +2,7 @@ function $_get(id){
   return document.getElementById(id);
 }
 
-function tecla(e){
+/*function tecla(e){
   var keyCode;
   if(window.event)keyCode=window.event.keyCode;
   else if(e) keyCode=e.which;
@@ -16,7 +16,7 @@ function tecla(e){
     default:
 
   }
-}
+}*/
 
 function loadDoc(url) {
   var xhttp = new XMLHttpRequest();

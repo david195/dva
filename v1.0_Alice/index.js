@@ -7,7 +7,7 @@ var path    = require("path");
 var cors = require('cors');
 cors = require('cors');
 
-var IPS = "192.168.1.68";
+var IPS = "192.168.1.72";
 
 var nodes=[];
 var cmds=[];
@@ -33,10 +33,10 @@ function login(data,socket){
   console.log(data);
 }
 
-app.get("/alice",function(req,res){
+app.get("/dva",function(req,res){
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-  With, Content-Type, Accept");
-  res.sendFile(path.join(__dirname+'/public/alice/index.html'));
+  res.sendFile(path.join(__dirname+'/public/dva/index.html'));
 });
 
 app.get("/debug",function(req,res){
@@ -53,11 +53,11 @@ app.get("/debug",function(req,res){
   }
 
   //Step 2 - Configure the request
-  var url='http://'+IPS+':8080/alice?';
+  var url='http://'+IPS+':8080/alice';
   if(req.query.q!=null)
-    url+='q='+req.query.q;
+    url+='?q='+req.query.q;
   if(req.query.add!=null)
-    url+='add='+req.query.add;
+    url+='/add?sc='+req.query.add+"cmd=youtube";
   var options = {
       url     : url,
       method  : 'GET',

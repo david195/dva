@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<!--
+Author: David Ruiz Garcia
+github-repository: https://github.com/
+git-page: https://david195.github.io/
+-->
+
+<html>
+<head>
+  <title>Exec</title>
+  <meta name="author" content="David Ruiz">
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script src="Exec.js"></script>
+  <script>
+  var Vname = "Bertha";
+  var x = new exec(Vname);
+    function init(){
+      var cmd = document.getElementById('console').value.split(" ");
+      x.exec(cmd[0],cmd[1]);
+    }
+  </script>
+</head>
+
+<body>
+  <div id="layout">
+    <textarea id="console"></textarea><br>
+    <button id="send" onclick="init()">send</button>
+    <div id="youtube"></div>
+  </div>
+</body>
+</html>

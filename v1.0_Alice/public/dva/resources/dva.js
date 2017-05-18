@@ -3,7 +3,7 @@ var recognizing = false;
 var Vname = 'Alice';
 var yes;
 
-var IPS = "192.168.1.68";
+var IPS = "192.168.1.72";
 
 var texto="";
 
@@ -31,11 +31,9 @@ if (!('webkitSpeechRecognition' in window)) {
         texto = texto.slice(1);
       cName = texto.split(" ")[0];
       if(cName==Vname & texto.slice(Vname.length+1)!=""){
+        $_get("texto").value = texto.slice(Vname.length+1);
         send_cmd(texto.slice(Vname.length+1));
       }
-      if(cName=="si"|cName=="no")
-        yes = cName;
-      $_get("texto").value = texto.slice(Vname.length+1);
     }
   }
 
@@ -75,35 +73,11 @@ function analiza(cmd){
     if(res=="ERROR"){
       add_cmd(cmd);
     }
-    eval(call);
+    else
+      eval(call);
     $_get('texto').value = res;
 
   });
-  //window.open("https://www.google.com.mx/search?q="+texto);
-  /*var search = String(cmd.split(" ")[0]);
-  var url = '';
-  switch (search) {
-    case "Google":
-      url= 'https://www.google.com.mx/search?q='+cmd.slice(7).split(" ").join("%20");
-      window.open(url);
-      break;
-    case "YouTube":
-      url= cmd.slice(8);
-      youtube(url);
-      break;
-    case "Wikipedia":
-      url= 'https://es.wikipedia.org/wiki/'+cmd.slice(10);
-      wikipedia(cmd.slice(10));
-      break;
-    case "home":
-      alert("home execute: "+cmd.slice(5));
-      break;
-    case "cállate":
-      responsiveVoice.cancel();
-      break;
-    default:
-      break;
-  }*/
 }
 
 function alice(cmd,callback){
@@ -123,8 +97,8 @@ function send_http(url,callback){
 function add_cmd(cmd){
     //var say = "comando no encontrado, ¿deseas asociar un comando existente?"
     //responsiveVoice.speak(say,'Spanish Female');
-    alert("simon");
-    send_http("http://l"+IPS+":3000/debug?add="+cmd+"&cmd=youtube",alert);
+    //alert("simon");
+    //send_http("http://"+IPS+":3000/debug?add="+cmd+"&cmd=youtube",alert);
 }
 
 /*Funciones cmd*/
@@ -186,4 +160,10 @@ function wiki(title,callback){
 function google(q){
   url= 'https://www.google.com.mx/search?q='+q;
   window.open(url);
+}
+
+
+function prueba(){
+  var cmd = document.getElementById('texto').value;
+  send_cmd(cmd);
 }
