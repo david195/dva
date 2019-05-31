@@ -1,0 +1,181 @@
+<html>
+  <head>
+    <title></title>
+    <meta content="">
+    <style></style>
+
+    <!--<link rel="stylesheet" href="css/bootstrap3.min.css">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap3.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="js/bootstrap4.min.js"></script>
+    <script src="js/bootstrap4.bundle.min.js"></script>
+
+    <script src='js/responsivevoice.js'></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+
+    <script src="js/dva.js"></script>
+
+    <script>
+      var Alice,cmd_data;
+      
+      function init(){
+        var data = Alice.getData();
+        cmd_data = create_tree(data);
+        load_tdevice();
+      }
+
+      function load_tdevice(){
+        var object = cmd_data;
+        for (const key in object) {
+          if (object.hasOwnProperty(key)) {
+            var op = document.createElement('option');
+            op.value = key;
+            op.innerHTML = key;
+            document.getElementById('type').appendChild(op);
+          }
+        }
+        load_device()
+      }
+
+      function load_device(){
+        document.getElementById('device').innerHTML='';
+        var object = cmd_data[document.getElementById('type').value];
+        for (const key in object) {
+          if (object.hasOwnProperty(key)) {
+            var op = document.createElement('option');
+            op.value = key;
+            op.innerHTML = key;
+            document.getElementById('device').appendChild(op);
+          }
+        }
+        load_exec();
+        load_args();
+      }
+
+      function load_exec(){
+        document.getElementById('exec').innerHTML='';
+        var object = cmd_data[document.getElementById('type').value][document.getElementById('device').value]['exec'];
+        for (const key in object) {
+          if (object.hasOwnProperty(key)) {
+            var op = document.createElement('option');
+            op.value = object[key];
+            op.innerHTML = object[key];
+            document.getElementById('exec').appendChild(op);
+          }
+        }
+      }
+
+     function load_exec(){
+      document.getElementById('exec').innerHTML='';
+      var object = cmd_data[document.getElementById('type').value][document.getElementById('device').value]['exec'];
+      for (const key in object) {
+        if (object.hasOwnProperty(key)) {
+          var op = document.createElement('option');
+          op.value = object[key];
+          op.innerHTML = object[key];
+          document.getElementById('exec').appendChild(op);
+        }
+      }
+      }
+
+      function load_args(){
+        document.getElementById('args').innerHTML='';
+        var object = cmd_data[document.getElementById('type').value][document.getElementById('device').value]['args'];
+        for (const key in object) {
+          if (object.hasOwnProperty(key)) {
+            var op = document.createElement('option');
+            op.value = object[key];
+            op.innerHTML = object[key];
+            document.getElementById('args').appendChild(op);
+          }
+        }
+      }
+
+      function create_tree(data){
+        var result = {
+          "sensor":{
+            "th0":{
+              "exec":['getTemperature', 'getHumidityFloor'],
+              "args":[]
+            }
+          },
+          "actuator":{
+            "rele4":{
+              "exec":["on","off"],
+              "args":[1,2,3,4]
+            }
+          }
+        };
+        return result;
+      }
+
+      function add_cmd(){
+        var obj = {
+          device:document.getElementById('type').value,
+          id:document.getElementById('device').value,
+          exec:document.getElementById('exec').value,
+          args:[document.getElementById('args').value]
+        }
+        if(obj.args=='')
+          obj.args = 'x';
+        var url = document.getElementById('cmd').value + "-" + obj.device + '-' + obj.id + '-' + obj.exec + '-' + obj.args;
+        url = "add_cmd/"+url;
+        console.log(url);
+        window.open(url,'_self');
+      }
+
+    </script>
+
+  </head>
+  <body onload="init()">
+    <script>
+        Alice = new dva('Alice');      
+    </script>
+    <div class="container-fluid">
+
+      <div class="row justify-content-center">
+          <div class="col">
+              <h1>Add a voice command</h1><br>
+              <br>Type device:
+            <select id="type" onchange="load_device()">
+            </select>
+          </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col">
+          <br>Device:
+          <select id="device" onchange="load_exec()">
+          </select>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col">
+          <br>Exec:
+          <select id="exec">
+          </select>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col">
+          <br>Args:
+          <select id="args">
+          </select>
+        </div>
+      </div>
+    </div>
+  <br><br><br>
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col">
+        <button id="listen">Listen</button><br><br><br>
+        <textarea id="cmd">...</textarea><br><br><br>
+        <button id="add" onclick="add_cmd()">Add</button>
+      </div>
+    </div>
+  </div>
+
+  </body>
+</html>

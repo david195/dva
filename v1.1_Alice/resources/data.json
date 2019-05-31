@@ -1,0 +1,45 @@
+{
+    "query":{
+        "saca perro":{
+            "device":"assistant",
+            "exec":"tu mero"
+        },
+        "cual es tu nombre":{
+            "device":"assistant",
+            "exec":"mi nombre es Alice"
+        },
+        "que eres":{
+            "device":"assistant",
+            "exec":"soy un sistema dómotico genérico, controlado por una interfaz natural."
+        }
+    },
+    "order":{
+        "prende ese papel":{
+            "device":"actuator",
+            "id":"porro",
+            "exec":"prender"
+        },
+        "enciende la luz de la sala":{
+            "device":"actuator",
+            "id":"rele4",
+            "exec":"on",
+            "args": [1]
+        },
+        "apaga la luz de la sala":{
+            "device":"actuator",
+            "id":"rele4",
+            "exec":"off",
+            "args": [1]
+        },
+        "cual es la temperatura actual":{
+            "device":"sensor",
+            "id":"th0",
+            "exec":"getTemperature"
+        },
+        "cual es la humedad del suelo":{
+            "device":"sensor",
+            "id":"th0",
+            "exec":"getHumidityFloor"
+        }
+    }
+}

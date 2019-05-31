@@ -1,0 +1,83 @@
+<html>
+  <head>
+    <title></title>
+    <meta content="">
+    <style></style>
+
+    <!--<link rel="stylesheet" href="css/bootstrap3.min.css">-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap3.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="js/bootstrap4.min.js"></script>
+    <script src="js/bootstrap4.bundle.min.js"></script>
+
+    <script src='js/responsivevoice.js'></script>
+    <script type="text/javascript" src="js/socket.io.js"></script>
+
+    <script src="js/dva.js"></script>
+
+    <script>
+      var Alice;
+      function init(){
+        Alice = new dva('Alice');
+        //Alice.greet();
+      }
+      function listen(){
+        Alice.listen();
+        //document.getElementById('log').innerHTML = 'Escuchando...';
+      }
+      function show_list(){
+        if(document.getElementById('list').innerHTML != ''){
+          document.getElementById('list').innerHTML = '';
+          return;
+        }
+        
+        data = Alice.getData();
+        tdata = "";
+        for (const k in data) {
+          if (data.hasOwnProperty(k)) {
+            tdata += '<tr><th>'+k+'</th></tr>';
+            var object = data[k]
+            for (const j in object) {
+              if (object.hasOwnProperty(j)) {
+                const element = object[j];
+                tdata += '<tr><td>'+j+'</tr></td>';
+              }
+            }
+          }
+        }
+        tdata = '<table class="table"><tbody>'+tdata+'</tbody></table>'
+        document.getElementById('list').innerHTML = tdata;
+      }
+    </script>
+
+  </head>
+  <body onload="init()">
+
+    <div class="container-fluid">
+      <div class="row justify-content-center"> 
+        <div class="col-2">
+            <button class="btn btn-link btn-lg" onclick="show_list()"><span class="glyphicon glyphicon-menu-hamburger"></button></a>
+        </div>
+        <div class="col-4"></div>
+        <div class="col-2">
+            <button class="btn btn-link btn-lg" onclick="window.open('new.html', '_self')"><span class="glyphicon glyphicon-plus"></span></button>
+        </div>
+      </div>
+      <div class="row justify-content-center"> 
+        <div class="col-2"></div>
+        <div class="col-4"><img src="resources/images/record.png" class="img-fluid" alt="Responsive image" onclick="listen()"></div>
+        <div class="col-2"></div>
+      </div>
+      <div class="row justify-content-center"> 
+          <div class="col-2"></div>
+          <div class="col-4" id='log'>...</div>
+          <div class="col-2"></div>
+      </div>
+    </div>
+      
+    <div id='list' class="container"></div>
+  </body>
+</html>
