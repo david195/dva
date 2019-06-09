@@ -137,31 +137,31 @@
     <div class="container-fluid">
 
       <div class="row justify-content-center">
-          <div class="col">
+          <div class="col-2">
               <h1>Add a voice command</h1><br>
               <br>Type device:
-            <select id="type" onchange="load_device()">
+            <select id="type" class="form-control" onchange="load_device()">
             </select>
           </div>
       </div>
       <div class="row justify-content-center">
-        <div class="col">
+        <div class="col-2">
           <br>Device:
-          <select id="device" onchange="load_exec()">
+          <select id="device" class="form-control" onchange="load_exec()">
           </select>
         </div>
       </div>
       <div class="row justify-content-center">
-        <div class="col">
+        <div class="col-2">
           <br>Exec:
-          <select id="exec">
+          <select id="exec" class="form-control">
           </select>
         </div>
       </div>
       <div class="row justify-content-center">
-        <div class="col">
+        <div class="col-2">
           <br>Args:
-          <select id="args">
+          <select id="args" class="form-control">
           </select>
         </div>
       </div>
@@ -169,10 +169,10 @@
   <br><br><br>
   <div class="container-fluid">
     <div class="row justify-content-center">
-      <div class="col">
-        <button id="listen">Listen</button><br><br><br>
+      <div class="col-2">
+        <button id="listen" class="btn btn-primary">Listen</button><br><br><br>
         <textarea id="cmd">...</textarea><br><br><br>
-        <button id="add" onclick="add_cmd()">Add</button>
+        <button id="add" class="btn btn-primary" onclick="add_cmd()">Add</button>
       </div>
     </div>
   </div>
